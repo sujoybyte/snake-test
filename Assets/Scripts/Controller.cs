@@ -5,6 +5,9 @@ public class Controller : MonoBehaviour
 {
     private Snake _snake;
     private GameObject _snakeHead;
+    private bool _isControllable = true;
+
+    public bool IsControllable { get { return _isControllable; } set { _isControllable = value; } }
 
 
     private void Awake()
@@ -15,6 +18,8 @@ public class Controller : MonoBehaviour
 
 	private void Update()
     {
+        if (!_isControllable) return;
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
             MoveSnake(Vector3.left);
         else if (Input.GetKeyDown(KeyCode.RightArrow))

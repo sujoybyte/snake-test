@@ -6,8 +6,6 @@ public class Snake : MonoBehaviour
 	[SerializeField] private GameObject _head;
 	[SerializeField] private GameObject _body;
 
-	private Eat Eat;
-
 	private List<Transform> _fullBody = new List<Transform>();
 	private GameObject _bodyCopy;
 	private Vector3 _lastBodyPosition;
@@ -20,12 +18,16 @@ public class Snake : MonoBehaviour
 	private void Awake()
 	{
 		_fullBody.Add(_body.transform);
-		Eat = _head.GetComponent<Eat>();
 	}
 
 	private void OnEnable()
 	{
-		Eat.FoodEaten += GenerateBody;
+		_head.GetComponent<Head>().OnFoodEaten += GenerateBody;
+	}
+
+	private void OnDisable()
+	{
+		_head.GetComponent<Head>().OnFoodEaten -= GenerateBody;
 	}
 
 	private void GenerateBody()
